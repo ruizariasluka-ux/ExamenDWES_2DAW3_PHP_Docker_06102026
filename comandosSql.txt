@@ -1,1 +1,25 @@
-// Copia aquí todos los comandos que has usado para crear la base de datos.
+-- Base de datos para el Centro de Ayuda al Empleo.
+CREATE DATABASE IF NOT EXISTS CAE
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+USE CAE;
+
+-- Una fila representa una solicitud de una persona.
+CREATE TABLE IF NOT EXISTS SOLICITUD (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nombre VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(150) NOT NULL,
+    dni VARCHAR(9) NOT NULL,
+    f_nac DATE NOT NULL,
+    tlf VARCHAR(20) NOT NULL,
+    email VARCHAR(254) NOT NULL,
+    profesion ENUM('soldadura', 'informatica', 'socio') NOT NULL,
+    jornadaParcial TINYINT(1) NOT NULL COMMENT '1 = parcial; 0 = completa',
+    idiomas VARCHAR(40) NOT NULL DEFAULT '' COMMENT 'Euskera, Inglés, ambos o cadena vacía',
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_solicitud_dni (dni),
+    CONSTRAINT chk_solicitud_jornada CHECK (jornadaParcial IN (0, 1))
+) ENGINE=InnoDB
+  DEFAULT CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;

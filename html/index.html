@@ -1,5 +1,8 @@
-<html>
+<!doctype html>
+<html lang="es">
     <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Examen de Desarrollo web en entorno servidor</title>
         <link rel="stylesheet" type="text/css" href="../estilos/estilos.css">
         <link rel="icon" type="image/png" sizes="32x32" href="../imagenes/favicon.jpeg">
@@ -7,11 +10,55 @@
     <body>
         <h1>Centro de Ayuda al Empleo</h1>
         <h2>Formulario de solicitud</h2>
-        <button onclick="location.href='../php/tabla.php?tipo=soldadura'">Soldadura</button>
-        <button onclick="location.href='../php/tabla.php?tipo=informatica'">Informática</button>
-        <button onclick="location.href='../php/tabla.php?tipo=socio'">Asistencia Sociosanitaria</button>
-        <form action="../php/tabla.php" method="???">
-            <!-- Añade aquí todos los datos que te pido en el enunciado -->
-        <form>
+
+        <nav aria-label="Ver solicitudes por profesión">
+            <button type="button" onclick="location.href='../php/tabla.php?tipo=soldadura'">Soldadura</button>
+            <button type="button" onclick="location.href='../php/tabla.php?tipo=informatica'">Informática</button>
+            <button type="button" onclick="location.href='../php/tabla.php?tipo=socio'">Asistencia Sociosanitaria</button>
+        </nav>
+
+        <form action="../php/tabla.php" method="post">
+            <input type="hidden" name="accion" value="crear">
+
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" maxlength="100" autocomplete="given-name" required>
+
+            <label for="apellidos">Apellidos</label>
+            <input type="text" id="apellidos" name="apellidos" maxlength="150" autocomplete="family-name" required>
+
+            <label for="dni">DNI</label>
+            <input type="text" id="dni" name="dni" maxlength="9" pattern="[0-9XYZxyz][0-9]{7}[A-Za-z]" title="Introduce un DNI o NIE válido, por ejemplo 12345678Z" required>
+
+            <label for="f_nac">Fecha de nacimiento</label>
+            <input type="date" id="f_nac" name="f_nac" required>
+
+            <label for="tlf">Teléfono</label>
+            <input type="tel" id="tlf" name="tlf" maxlength="20" autocomplete="tel" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" maxlength="254" autocomplete="email" required>
+
+            <label for="profesion">Profesión estudiada</label>
+            <select id="profesion" name="profesion" required>
+                <option value="" selected disabled>Elige una profesión</option>
+                <option value="soldadura">Soldadura</option>
+                <option value="informatica">Informática</option>
+                <option value="socio">Asistencia Sociosanitaria</option>
+            </select>
+
+            <fieldset>
+                <legend>Tipo de jornada</legend>
+                <label><input type="radio" name="jornadaParcial" value="1" style="width:auto" required> Parcial</label>
+                <label><input type="radio" name="jornadaParcial" value="0" style="width:auto"> Completa</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Idiomas</legend>
+                <label><input type="checkbox" name="idiomas[]" value="Euskera" style="width:auto"> Euskera</label>
+                <label><input type="checkbox" name="idiomas[]" value="Inglés" style="width:auto"> Inglés</label>
+            </fieldset>
+
+            <button type="submit">Enviar solicitud</button>
+        </form>
     </body>
 </html>
